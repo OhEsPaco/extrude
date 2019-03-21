@@ -41,5 +41,10 @@ public class Point3D {
             }
             return false;
         }
+
+    @Override
+    public String toString() {
+        return "v "+x + " " + y + " "+z;
     }
+}
 
