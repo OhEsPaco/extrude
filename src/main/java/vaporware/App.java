@@ -1,5 +1,9 @@
 package vaporware;
 
+import vaporware.algorithms.Extrude;
+import vaporware.obj.Obj;
+import vaporware.obj.ObjReader;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,12 +28,12 @@ public class App {
                 }
 
                 for(int i=2;i<args.length;i++){
-                    Shape s = o.readOBJ(args[i]);
-                    if(s.getFaces().size()==0){
+                    Obj s = o.readOBJ(args[i]);
+                    if (s.getShapes().size() == 0) {
                         System.out.println(args[i]+" is empty");
                         continue;
                     }
-                    Shape s2 = ExtrudeAlg.extrude(distance, s);
+                    Obj s2 = Extrude.extrude(distance, s);
 
                     Path path = Paths.get(args[i]);
                     String file = path.getFileName().toString();
