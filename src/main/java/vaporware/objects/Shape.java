@@ -23,7 +23,7 @@ public class Shape {
                 this.addVertex(new Point3D(p.getX(), p.getY(), p.getZ()));
             }
             for (int[] face : orig.getFaces()) {
-                int[] dest = new int[5];
+                int[] dest = new int[face.length];
                 System.arraycopy(face, 0, dest, 0, face.length);
                 this.addFace(dest);
             }
