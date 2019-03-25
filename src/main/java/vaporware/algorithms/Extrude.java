@@ -78,6 +78,8 @@ public class Extrude {
 
     }
 
+
+
     private static Point3D extrudePoint(Point3D orig, Point3D normal, float distance) {
         return new Point3D(orig.getX() + normal.getX() * distance, orig.getY() + normal.getY() * distance, orig.getZ() + normal.getZ() * distance);
     }
