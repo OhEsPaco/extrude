@@ -8,6 +8,13 @@ It also supports lathe!
 Maven
 Any java IDE
 ```
+
+### Cloning
+
+```
+git clone https://github.com/OhEsPaco/extrude.git
+```
+
 ### Building
 
 Open your favorite terminal application and execute:
