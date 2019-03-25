@@ -50,7 +50,6 @@ public class App {
                         }
 
                     } catch (Exception e3) {
-                        e3.printStackTrace();
                         System.out.println("Unknown exception.");
                         System.exit(1);
                     }
