@@ -1,7 +1,7 @@
 package vaporware.algorithms;
 
 import vaporware.exceptions.CollinearPointsException;
-import vaporware.obj.Obj;
+import vaporware.objects.Obj;
 import vaporware.objects.Point3D;
 import vaporware.objects.Shape;
 
@@ -9,12 +9,18 @@ public class Extrude {
 
     public static Obj extrude(float distance, Obj obj) {
 
+        //First, we create a new obj
         Obj obj_output = new Obj();
 
+        //Then, we extrude every shape
         for (Shape s_orig : obj.getShapes()) {
 
+            //The current shape is cloned
             Shape s_output = new Shape(s_orig);
+
+            //For every face (back is how I call the existing faces)
             for (int[] back : s_orig.getFaces()) {
+                //Calculate normal
                 Point3D normal = null;
                 try {
                     normal = calculateNormalVector(s_output.getVertex(back[0]), s_output.getVertex(back[1]), s_output.getVertex(back[2]));
@@ -24,13 +30,15 @@ public class Extrude {
                     continue;
                 }
 
+                //Calculate "top" face
                 int[] top = new int[back.length];
                 for (int i = 0; i < top.length; i++) {
                     top[i] = s_output.addVertex(extrudePoint(s_output.getVertex(back[i]), normal, distance));
                 }
-
                 s_output.addFace(top);
 
+                //Calculate side faces
+                //The number of side faces is the same as vertexes in the back face
                 for (int faceNumber = 0; faceNumber < back.length; faceNumber++) {
 
                     int[] side = new int[4];
@@ -77,8 +85,6 @@ public class Extrude {
         return normal;
 
     }
-
-
 
     private static Point3D extrudePoint(Point3D orig, Point3D normal, float distance) {
         return new Point3D(orig.getX() + normal.getX() * distance, orig.getY() + normal.getY() * distance, orig.getZ() + normal.getZ() * distance);

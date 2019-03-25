@@ -7,12 +7,15 @@ public class Shape {
     private ArrayList<Point3D> vertexes = new ArrayList<Point3D>();
     private String object_name = "default";
     private String smooth_shading = "off";
+    private ArrayList<int[]> edges = new ArrayList<int[]>();
 
     public Shape() {
+        //Empty constructor
     }
 
 
     public Shape(Shape orig) {
+        //This constructor clones a shape
         if (orig != null) {
             this.object_name = orig.getObject_name();
             this.smooth_shading = orig.getSmooth_shading();
@@ -24,7 +27,23 @@ public class Shape {
                 System.arraycopy(face, 0, dest, 0, face.length);
                 this.addFace(dest);
             }
+
+            for (int[] edge : orig.getEdges()) {
+                int[] dest = new int[2];
+                System.arraycopy(edge, 0, dest, 0, edge.length);
+                this.addEdge(dest);
+            }
+
+
         }
+    }
+
+    public void addEdge(int[] edge) {
+        edges.add(edge);
+    }
+
+    public ArrayList<int[]> getEdges() {
+        return edges;
     }
 
     public ArrayList<int[]> getFaces() {

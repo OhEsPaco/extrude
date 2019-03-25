@@ -1,10 +1,10 @@
-package vaporware.obj;
-
-import vaporware.objects.Shape;
+package vaporware.objects;
 
 import java.util.ArrayList;
 
 public class Obj {
+
+    //An obj object is composed by an array of shapes
     private ArrayList<Shape> shapes = new ArrayList<>();
 
     public ArrayList<Shape> getShapes() {

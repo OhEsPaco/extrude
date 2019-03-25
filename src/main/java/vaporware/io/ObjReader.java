@@ -1,5 +1,6 @@
-package vaporware.obj;
+package vaporware.io;
 
+import vaporware.objects.Obj;
 import vaporware.objects.Point3D;
 import vaporware.objects.Shape;
 
@@ -7,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 
 public class ObjReader {
 
@@ -49,6 +51,14 @@ public class ObjReader {
                                 vertexes[i] = (Integer.parseInt(lineSplit[i + 1]) - 1) - lastShapeLength;
                             }
                             current_shape.addFace(vertexes);
+                        }
+                        break;
+                    case "l":
+                        if (current_shape != null) {
+                            int[] edge = new int[2];
+                            edge[0] = Integer.parseInt(lineSplit[1]);
+                            edge[1] = Integer.parseInt(lineSplit[2]);
+                            current_shape.addEdge(edge);
                         }
                         break;
 

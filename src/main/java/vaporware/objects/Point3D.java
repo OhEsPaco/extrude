@@ -44,13 +44,10 @@ public class Point3D {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
-          "null instanceof [type]" also returns false */
         if (!(o instanceof Point3D)) {
             return false;
         }
 
-        // typecast o to Complex so that we can compare data members
         Point3D p = (Point3D) o;
 
         return p.getX() == x && p.getY() == y && p.getZ() == z;
