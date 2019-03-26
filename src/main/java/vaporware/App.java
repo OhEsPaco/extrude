@@ -78,6 +78,11 @@ public class App {
                             System.out.println("Incorrect step number.");
                             System.exit(1);
                         }
+
+                        if (steps < 1) {
+                            System.out.println("I need at least 1 step!");
+                            System.exit(1);
+                        }
                         Point3D axis = null;
                         try {
                             axis = new Point3D(Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
@@ -87,6 +92,7 @@ public class App {
                         }
 
                         double angle = 0;
+
                         try {
                             angle = Double.parseDouble(args[4]);
                         } catch (Exception e) {

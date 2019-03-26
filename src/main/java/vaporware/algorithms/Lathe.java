@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Lathe {
     public static Obj lathe(Obj obj, int steps, double angle, Point3D axis) {
+
+
         //First, we create a new obj
         Obj obj_output = new Obj();
 
@@ -16,7 +18,6 @@ public class Lathe {
 
         //Then, we spin every shape
         for (Shape s_orig : obj.getShapes()) {
-
             Shape s_output = new Shape(s_orig);
 
             //Number of edges in the original shape
@@ -28,20 +29,18 @@ public class Lathe {
             //The next angle that must be calculated
             double nextAngle = anglePerStep;
 
-            for (int i = 0, nextEdges = 0; nextAngle <= angle; i++, nextAngle += anglePerStep, nextEdges += numberOfEdges) {
+            ArrayList<int[]> edges = s_orig.getEdges();
+
+            for (; nextAngle <= angle; nextAngle += anglePerStep) {
 
                 //Calculate rotation matrix
                 double[][] rotationMatrix = generateRotationMatrix(normalizedAxis, nextAngle);
 
-                ArrayList<int[]> edges = s_output.getEdges();
-
                 //Then every new edge is calculated and added to the edge list of the shape
-                for (int j = nextEdges; j < nextEdges + numberOfEdges; j++) {
+                for (int j = 0; j < edges.size(); j++) {
                     int[] newEdge = new int[2];
-
                     newEdge[0] = s_output.addVertex(calculateNewPoint(rotationMatrix, s_output.getVertex(edges.get(j)[0])));
                     newEdge[1] = s_output.addVertex(calculateNewPoint(rotationMatrix, s_output.getVertex(edges.get(j)[1])));
-
                     s_output.addEdge(newEdge);
                 }
 
@@ -50,7 +49,7 @@ public class Lathe {
             //Every new face is a quad.
             //If an edge of a face is stored in the position i,
             //the oposite edge can be found in i + numberOfEdges
-            for (int i = 0; i < (s_output.getEdges().size() / numberOfEdges) - 1; i++) {
+            for (int i = 0; i < (s_output.getEdges().size()) - numberOfEdges; i++) {
                 int[] face = new int[4];
                 face[0] = s_output.getEdges().get(i)[1];
                 face[1] = s_output.getEdges().get(i + numberOfEdges)[1];
